@@ -1,9 +1,11 @@
 <template>
   <div>
     <div v-for="post in posts" :key="post.id" class="card">
-      <h1>{{ post.title }}</h1>
+      <router-link v-bind:to="'Blog/' + post.id">
+        <h1>{{ post.title }}</h1>
+      </router-link>
       <p>
-        {{ post.message }}
+        {{ post.message | snippet }}
       </p>
       <div class="comments-counter">3 comments</div>
     </div>
@@ -18,9 +20,9 @@ export default {
       required: true,
     },
   },
-  // data() {
-  //   return;
-  // },
+  data() {
+    return {};
+  },
 };
 </script>
 
