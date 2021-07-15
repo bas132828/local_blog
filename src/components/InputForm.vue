@@ -82,6 +82,11 @@ export default {
       (this.title = ""), (this.titleMessage = ""), (this.textMessage = "");
     },
   },
+  beforeCreate() {
+    if (localStorage.getItem("posts"))
+      this.posts = JSON.parse(localStorage.getItem("posts"));
+    this.$emit("passPosts", this.posts);
+  },
 };
 </script>
 
