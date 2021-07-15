@@ -4,8 +4,9 @@
     <div class="container">
       <Input-form :show="show" v-on:passPosts="updatePosts($event)" />
 
-      <Card :posts="posts" class="wrapper" />
-      <Post />
+      <Card v-if="this.posts.length > 0" :posts="posts" class="wrapper" />
+      <p v-else>Click a new post button to make your firts post!</p>
+      <Post v-show="false" />
     </div>
   </div>
 </template>
@@ -26,14 +27,9 @@ export default {
     };
   },
   methods: {
-    showFull(e) {
-      console.log(e.target);
-      // let element = this.$refs;
-      // console.log(element);
-      // $(element).modal("show");
-    },
     updatePosts(data) {
       this.posts = data;
+      this.show = false;
       console.log(this.posts);
     },
   },
@@ -46,6 +42,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column-reverse;
+  width: 100%;
 }
 
 .comment {
