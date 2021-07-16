@@ -44,35 +44,32 @@ export default {
       titleMessage: "",
       textMessage: "",
       idForPost: 0,
-      posts: [
-        // {
-        //   id: 1,
-        //   title: "Test title",
-        //   message:
-        //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus possimus aliquam veniam praesentium, rerum minima quaerat ullam!",
-        //   comments: [
-        //     {
-        //       author: "",
-        //       comment: "",
-        //     },
-        //   ],
-        // },
-        // {
-        //   id: 2,
-        //   title: "Test2 title2",
-        //   message:
-        //     "Lorem ipsum dolor elit. Delectus possimus aliquam veniam praesentium, rerum minima quaerat ullam!",
-        // },
-      ],
+      posts: [],
     };
   },
   methods: {
     addNewPost() {
+      this.idForPost = Math.random()
+        .toString()
+        .slice(2, 8);
       this.posts.push({
         id: this.idForPost,
         title: this.titleMessage,
         message: this.textMessage,
       });
+
+      // if (JSON.parse(localStorage.getItem("posts")).length) {
+
+      // fixing the problem with reseting localStorage by merging it
+      // const legacy = JSON.parse(localStorage.getItem("posts"));
+
+      // console.log([legacy, ...this.posts]);
+      //   localStorage.setItem(
+      //     "posts",
+      //     JSON.stringify([...legacy, ...this.posts])
+      //   );
+      // }
+      // else
       localStorage.setItem("posts", JSON.stringify(this.posts));
     },
     onSubmit() {
@@ -82,10 +79,12 @@ export default {
       (this.title = ""), (this.titleMessage = ""), (this.textMessage = "");
     },
   },
-  beforeCreate() {
-    if (localStorage.getItem("posts"))
+  mounted() {
+    //using localstorage to render blogs if if have smth in the local storage
+    if (localStorage.getItem("posts")) {
       this.posts = JSON.parse(localStorage.getItem("posts"));
-    this.$emit("passPosts", this.posts);
+      this.$emit("passPosts", this.posts);
+    }
   },
 };
 </script>

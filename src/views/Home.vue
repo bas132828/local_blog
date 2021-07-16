@@ -11,8 +11,6 @@
   </div>
 </template>
 <script>
-// v-for="post in posts" :key="post.id"
-
 import Card from "@/components/Card.vue";
 import InputForm from "@/components/InputForm.vue";
 import Post from "@/components/Post.vue";
@@ -30,7 +28,6 @@ export default {
     updatePosts(data) {
       this.posts = data;
       this.show = false;
-      console.log(this.posts);
     },
   },
 };
@@ -43,33 +40,6 @@ export default {
   align-items: center;
   flex-direction: column-reverse;
   width: 100%;
-}
-
-.comment {
-  width: 80%;
-  background-color: #fff;
-  margin: 1rem;
-}
-
-.comment-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 40rem;
-  height: 5rem;
-}
-
-.post {
-  width: 80%;
-  height: auto;
-  background-color: #42b983;
-  margin: 2rem;
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
 }
 
 .title {
