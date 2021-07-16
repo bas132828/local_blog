@@ -1,33 +1,34 @@
 <template>
   <div class="home">
-    <button class="btn-add-post" v-on:click="show = !show">new post</button>
+    <button class="btn-add-post" v-on:click="showHandler">new post</button>
     <div class="container">
-      <Input-form :show="show" v-on:passPosts="updatePosts($event)" />
-
-      <Card v-if="this.posts.length > 0" :posts="posts" class="wrapper" />
+      <Input-form />
+      <Card v-if="posts.length > 0" class="wrapper" :show="show" />
       <p v-else>Click a new post button to make your firts post!</p>
-      <Post v-show="false" />
     </div>
   </div>
 </template>
 <script>
 import Card from "@/components/Card.vue";
 import InputForm from "@/components/InputForm.vue";
-import Post from "@/components/Post.vue";
 
 export default {
   name: "Home",
-  components: { Card, Post, InputForm },
+  components: { Card, InputForm },
   data() {
-    return {
-      show: false,
-      posts: [],
-    };
+    return {};
   },
   methods: {
-    updatePosts(data) {
-      this.posts = data;
-      this.show = false;
+    showHandler() {
+      this.$store.commit("showHandler");
+    },
+  },
+  computed: {
+    posts() {
+      return this.$store.state.posts;
+    },
+    show() {
+      return this.$store.state.show;
     },
   },
 };

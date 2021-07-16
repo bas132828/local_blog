@@ -14,14 +14,13 @@
 
 <script>
 export default {
-  props: {
-    posts: {
-      type: Array,
-      required: true,
-    },
-  },
   data() {
     return {};
+  },
+  computed: {
+    posts() {
+      return this.$store.state.posts;
+    },
   },
 };
 </script>

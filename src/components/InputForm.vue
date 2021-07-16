@@ -1,5 +1,6 @@
 <template>
   <div id="input">
+    <!-- -->
     <form v-if="show" class="post-form" v-on:submit.prevent="onSubmit">
       <label for="#text">Title</label>
       <input
@@ -20,9 +21,12 @@
       />
       <button type="submit">Post</button>
     </form>
-    <button v-if="show" v-on:click="ok = !ok">preview your Post</button>
-    <div id="preview" v-show="ok">
-      <button v-on:click="ok = !ok">&times;</button>
+    <!--  -->
+    <button v-if="show" v-on:click="previewShow = !previewShow">
+      preview your Post
+    </button>
+    <div id="preview" v-show="previewShow">
+      <button v-on:click="previewShow = !previewShow">&times;</button>
       <h2>Preview</h2>
       <h3>{{ titleMessage }}</h3>
       <p>
@@ -34,13 +38,9 @@
 
 <script>
 export default {
-  props: {
-    show: Boolean,
-  },
-
   data() {
     return {
-      ok: false,
+      previewShow: false,
       titleMessage: "",
       textMessage: "",
       idForPost: 0,
@@ -48,43 +48,40 @@ export default {
     };
   },
   methods: {
+    showHandler() {
+      this.$store.commit("showHandler");
+    },
     addNewPost() {
       this.idForPost = Math.random()
         .toString()
         .slice(2, 8);
-      this.posts.push({
+
+      this.$store.commit("addPost", {
         id: this.idForPost,
         title: this.titleMessage,
         message: this.textMessage,
+        // comments: []
       });
-
-      // if (JSON.parse(localStorage.getItem("posts")).length) {
-
-      // fixing the problem with reseting localStorage by merging it
-      // const legacy = JSON.parse(localStorage.getItem("posts"));
-
-      // console.log([legacy, ...this.posts]);
-      //   localStorage.setItem(
-      //     "posts",
-      //     JSON.stringify([...legacy, ...this.posts])
-      //   );
-      // }
-      // else
-      localStorage.setItem("posts", JSON.stringify(this.posts));
+      localStorage.setItem("posts", JSON.stringify(this.$store.state.posts));
+      this.showHandler();
     },
     onSubmit() {
       this.addNewPost();
-      this.idForPost++;
-      this.$emit("passPosts", this.posts);
       (this.title = ""), (this.titleMessage = ""), (this.textMessage = "");
     },
   },
+  computed: {
+    show() {
+      return this.$store.state.show;
+    },
+  },
   mounted() {
-    //using localstorage to render blogs if if have smth in the local storage
-    if (localStorage.getItem("posts")) {
-      this.posts = JSON.parse(localStorage.getItem("posts"));
-      this.$emit("passPosts", this.posts);
-    }
+    //using localstorage to render blogs if if have smth in the there
+    localStorage.getItem("posts").length &&
+      this.$store.commit(
+        "rewritePosts",
+        JSON.parse(localStorage.getItem("posts"))
+      );
   },
 };
 </script>
