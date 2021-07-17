@@ -11,6 +11,14 @@
         v-model="titleMessage"
         required
       />
+      <label for="#brief">Brief</label>
+      <input
+        type="text"
+        id="brief"
+        class="title"
+        placeholder="What's your blog about(will show the begging of the post if not mentioned)"
+        v-model="brief"
+      />
       <label for="#message">Message</label>
       <textarea
         id="message"
@@ -42,6 +50,7 @@ export default {
     return {
       previewShow: false,
       titleMessage: "",
+      brief: "",
       textMessage: "",
       idForPost: 0,
       posts: [],
@@ -58,6 +67,8 @@ export default {
 
       this.$store.commit("addPost", {
         id: this.idForPost,
+        brief: this.brief,
+
         title: this.titleMessage,
         message: this.textMessage,
         comments: [],
@@ -68,6 +79,7 @@ export default {
     onSubmit() {
       this.addNewPost();
       (this.titleMessage = ""), (this.textMessage = "");
+      this.brief = "";
     },
   },
   computed: {

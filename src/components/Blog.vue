@@ -1,7 +1,10 @@
 <template>
   <div id="blog" class="blog">
     <h1>{{ blogContent.title }}</h1>
-    <div>{{ blogContent.message }}</div>
+    <h4 v-if="blogContent.brief">
+      {{ blogContent.brief }}
+    </h4>
+    <p>{{ blogContent.message }}</p>
     <button class="btn-add-post" v-on:click="showHandler">new comment</button>
 
     <form
@@ -28,6 +31,7 @@
       <h3>
         {{ comment.title }}
       </h3>
+
       <p>
         {{ comment.content }}
       </p>

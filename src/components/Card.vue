@@ -5,7 +5,7 @@
         <h1>{{ post.title }}</h1>
       </router-link>
       <p>
-        {{ post.message | snippet }}
+        {{ post.brief || post.message | snippet }}
       </p>
       <div class="comments-counter">3 comments</div>
     </div>
