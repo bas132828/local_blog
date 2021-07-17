@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="post in posts" :key="post.id" class="card">
-      <router-link v-bind:to="'Blog/' + post.id">
+      <router-link v-bind:to="'/' + post.id">
         <h1>{{ post.title }}</h1>
       </router-link>
       <p>

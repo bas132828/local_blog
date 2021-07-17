@@ -60,14 +60,14 @@ export default {
         id: this.idForPost,
         title: this.titleMessage,
         message: this.textMessage,
-        // comments: []
+        comments: [],
       });
       localStorage.setItem("posts", JSON.stringify(this.$store.state.posts));
       this.showHandler();
     },
     onSubmit() {
       this.addNewPost();
-      (this.title = ""), (this.titleMessage = ""), (this.textMessage = "");
+      (this.titleMessage = ""), (this.textMessage = "");
     },
   },
   computed: {
@@ -77,7 +77,7 @@ export default {
   },
   mounted() {
     //using localstorage to render blogs if if have smth in the there
-    localStorage.getItem("posts").length &&
+    localStorage.getItem("posts")?.length &&
       this.$store.commit(
         "rewritePosts",
         JSON.parse(localStorage.getItem("posts"))

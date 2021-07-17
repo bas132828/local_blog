@@ -2,56 +2,120 @@
   <div id="blog" class="blog">
     <h1>{{ blogContent.title }}</h1>
     <div>{{ blogContent.message }}</div>
-    <form class="comment-form" v-on:submit.prevent="onSubmitComment">
+    <button class="btn-add-post" v-on:click="showHandler">new comment</button>
+
+    <form
+      v-if="showComment"
+      class="comment-form"
+      v-on:submit.prevent="onSubmitComment"
+    >
       <input
         type="text"
         class="comment-form name"
-        v-model.lazy="commentTitle"
+        v-model="comment.title"
+        placeholder="Enter your name"
+        required
       />
-      <input
-        type="text"
-        class="comment-form comment"
-        v-model.lazy="commentContent"
+      <textarea
+        class="message"
+        v-model="comment.content"
+        placeholder="Your comment"
+        required
       />
       <button type="submit">Leave a comment</button>
     </form>
-    <div class="comment">
-      <h3>{{ commentTitle }}</h3>
+    <div v-for="comment of comments.comments" :key="comment.id" class="comment">
+      <h3>
+        {{ comment.title }}
+      </h3>
       <p>
-        {{ commentContent }}
+        {{ comment.content }}
       </p>
+      <button v-on:click="deleteComment(comment.id)">&times;</button>
+    </div>
+    <div class="button-wrapper">
+      <button>Edit blog</button>
+      <button v-on:click="deleteBlog">Delete blog</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: "blog",
   data() {
     return {
       id: this.$route.params.id,
       blogContent: {},
-      commentTitle: "",
-      commentContent: "",
-      comments: [],
+      addCommentFlag: false,
+      comment: {
+        id: 0,
+        title: "",
+        content: "",
+        pageId: this.$route.params.id,
+      },
     };
   },
   methods: {
+    deleteBlog() {
+      this.$store.commit("deleteBlog", this.id);
+      localStorage.setItem("posts", JSON.stringify(this.$store.state.posts));
+      this.$router.push("/");
+    },
+
+    deleteComment(commentId) {
+      const ids = {
+        cmtId: commentId,
+        pageId: this.$route.params.id,
+      };
+      this.$store.commit("deleteComment", ids);
+      localStorage.setItem("posts", JSON.stringify(this.$store.state.posts));
+    },
+    showHandler() {
+      this.$store.commit("showCommentHandler");
+    },
+    addNewComment() {
+      this.comment.id = Math.random()
+        .toString()
+        .slice(2, 8);
+      console.log(this.comment);
+      this.$store.commit("addComment", this.comment, this.comment.pageId);
+      //allows us to rewrite LStorage every time we add a comment
+      localStorage.setItem("posts", JSON.stringify(this.$store.state.posts));
+      this.showHandler();
+      this.comment.title = "";
+      this.comment.content = "";
+    },
     onSubmitComment() {
-      this.comments.push({
-        //comment id
-        commentTitle: this.commentTitle,
-        commentContent: this.commentContentx,
-      });
-      //comment id
-      this.commentTitle = "";
-      this.commentContent = "";
+      //
+      this.addNewComment();
+
+      this.$store.commit(
+        "rewritePosts",
+        JSON.parse(localStorage.getItem("posts"))
+      );
+    },
+  },
+  computed: {
+    showComment() {
+      return this.$store.state.showComment;
+    },
+    comments() {
+      return this.$store.getters.getComments(this.id);
     },
   },
   created() {
-    const tempId = this.id;
     this.blogContent = JSON.parse(localStorage.getItem("posts")).find(
-      (el) => el.id === tempId
+      (el) => el.id === this.id
     );
+  },
+  mounted() {
+    // preventing bug with reloading the page and loosing state data
+    localStorage.getItem("posts")?.length &&
+      this.$store.commit(
+        "rewritePosts",
+        JSON.parse(localStorage.getItem("posts"))
+      );
   },
 };
 </script>
