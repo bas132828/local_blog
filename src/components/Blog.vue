@@ -38,7 +38,9 @@
       <button v-on:click="deleteComment(comment.id)">&times;</button>
     </div>
     <div class="button-wrapper">
-      <button>Edit blog</button>
+      <router-link v-bind:to="'/edit/' + this.id" exact>
+        <button>Edit blog</button></router-link
+      >
       <button v-on:click="deleteBlog">Delete blog</button>
     </div>
   </div>

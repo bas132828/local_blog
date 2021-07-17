@@ -10,6 +10,12 @@ export default new Vuex.Store({
     showComment: false,
   },
   mutations: {
+    editThisBlog: (state, options) => {
+      const postFound = state.posts.find((el) => el.id === options.id);
+      postFound.message = options.text;
+      (postFound.title = options.title), (postFound.brief = options.brief);
+    },
+
     showHandler: (state) => {
       state.show = !state.show;
     },
@@ -37,16 +43,12 @@ export default new Vuex.Store({
     },
     deleteBlog: (state, id) => {
       const postFound = state.posts.findIndex((el) => el.id === id);
-      // console.log(postFound);
-      console.log(postFound, state.posts);
       state.posts.splice(postFound, 1);
     },
   },
   getters: {
     getComments: (state) => (id) => {
-      // state.posts.filter((el) => el.id === id)
       const postFound = state.posts.find((el) => el.id === id);
-
       return postFound || [];
     },
   },

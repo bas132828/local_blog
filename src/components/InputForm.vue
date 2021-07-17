@@ -1,6 +1,5 @@
 <template>
   <div id="input">
-    <!-- -->
     <form v-if="show" class="post-form" v-on:submit.prevent="onSubmit">
       <label for="#text">Title</label>
       <input

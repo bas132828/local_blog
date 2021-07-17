@@ -7,7 +7,12 @@
       <p>
         {{ post.brief || post.message | snippet }}
       </p>
-      <div class="comments-counter">3 comments</div>
+      <div v-if="post.comments.length > 1" class="comments-counter">
+        {{ post.comments.length }} comments
+      </div>
+      <div v-else class="comments-counter">
+        {{ post.comments.length }} comment
+      </div>
     </div>
   </div>
 </template>
