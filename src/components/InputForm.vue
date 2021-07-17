@@ -97,13 +97,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 #preview {
   position: absolute;
   width: 90%;
   height: 20rem;
   z-index: 1;
-  background-color: tomato;
+  background-color: #444;
 }
 #input {
   width: 80%;

@@ -31,6 +31,11 @@ export default {
       return this.$store.state.show;
     },
   },
+  //checking if we have some dummy data hardcoded and load it to localstorage to
+  beforeCreate() {
+    this.$store.state.posts.length &&
+      localStorage.setItem("posts", JSON.stringify(this.$store.state.posts));
+  },
 };
 </script>
 
