@@ -1,7 +1,6 @@
 <template>
-  <div id="input">
-    <form v-if="show" class="post-form" v-on:submit.prevent="onSubmit">
-      <label for="#text">Title</label>
+  <div id="input" class="input" :class="{ z_index_fix: show }">
+    <form v-show="show" class="post-form" v-on:submit.prevent="onSubmit">
       <input
         type="text"
         id="title"
@@ -10,15 +9,13 @@
         v-model="titleMessage"
         required
       />
-      <label for="#brief">Brief</label>
       <input
         type="text"
         id="brief"
         class="title"
-        placeholder="What's your blog about(will show the begging of the post if not mentioned)"
+        placeholder="What's your blog about(will show the beginning of the post if not mentioned)"
         v-model="brief"
       />
-      <label for="#message">Message</label>
       <textarea
         id="message"
         class="message"
@@ -26,20 +23,8 @@
         required
         v-model="textMessage"
       />
-      <button type="submit">Post</button>
+      <button class="btn" type="submit">Post</button>
     </form>
-    <!--  -->
-    <button v-if="show" v-on:click="previewShow = !previewShow">
-      preview your Post
-    </button>
-    <div id="preview" v-show="previewShow">
-      <button v-on:click="previewShow = !previewShow">&times;</button>
-      <h2>Preview</h2>
-      <h3>{{ titleMessage }}</h3>
-      <p>
-        {{ textMessage }}
-      </p>
-    </div>
   </div>
 </template>
 
@@ -105,9 +90,78 @@ export default {
   z-index: 1;
   background-color: #444;
 }
-#input {
-  width: 80%;
+.input {
+  position: absolute;
   display: flex;
   justify-content: center;
+  z-index: -1;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 80%;
+  min-width: 30rem;
+  min-height: 30rem;
+  height: 80vh;
+
+  .post-form {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background-color: #ccc;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 5px 5px 15px rgb(221, 122, 65);
+
+    input {
+      display: inline-block;
+      width: 80%;
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #222222;
+      outline: none;
+      transition: 0.4s;
+      font-family: "Lato", sans-serif;
+      font-size: 1.5rem;
+
+      &:focus {
+        border-bottom: 1px solid rgb(221, 122, 65);
+        transition: 0.4s;
+      }
+    }
+    label {
+      display: inline-block;
+      outline: none;
+    }
+    textarea {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #222222;
+      height: 2rem;
+      resize: none;
+      overflow: hidden;
+      outline: none;
+      transition: 0.4s;
+
+      &:focus {
+        border-bottom: 1px solid rgb(221, 122, 65);
+        transition: 0.4s;
+      }
+    }
+  }
+}
+.btn {
+  width: 8rem;
+  height: 3rem;
+  appearance: none;
+  background-color: #fff;
+  box-shadow: 2px 2px 5px rgb(109, 109, 109);
+  border: none;
+  font-family: "Kalam", cursive;
+  margin: 1rem;
+}
+.z_index_fix {
+  z-index: 3;
 }
 </style>

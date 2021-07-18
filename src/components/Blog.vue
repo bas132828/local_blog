@@ -1,12 +1,5 @@
 <template>
-  <div id="blog" class="blog">
-    <h1>{{ blogContent.title }}</h1>
-    <h4 v-if="blogContent.brief">
-      {{ blogContent.brief }}
-    </h4>
-    <p>{{ blogContent.message }}</p>
-    <button class="btn-add-post" v-on:click="showHandler">new comment</button>
-
+  <div class="blog-main">
     <form
       v-if="showComment"
       class="comment-form"
@@ -14,7 +7,6 @@
     >
       <input
         type="text"
-        class="comment-form name"
         v-model="comment.title"
         placeholder="Enter your name"
         required
@@ -25,23 +17,53 @@
         placeholder="Your comment"
         required
       />
-      <button type="submit">Leave a comment</button>
+      <button class="btn" type="submit">Leave a comment</button>
     </form>
-    <div v-for="comment of comments.comments" :key="comment.id" class="comment">
-      <h3>
-        {{ comment.title }}
-      </h3>
+    <div class="blog-container flex-item">
+      <h1>{{ blogContent.title }}</h1>
+      <h4 v-if="blogContent.brief">
+        {{ blogContent.brief }}
+      </h4>
+      <p>{{ blogContent.message }}</p>
 
-      <p>
-        {{ comment.content }}
-      </p>
-      <button v-on:click="deleteComment(comment.id)">&times;</button>
+      <div class="button-container">
+        <router-link v-bind:to="'/edit/' + this.id" exact>
+          <button class="btn btn-edit">Edit blog</button></router-link
+        >
+        <button class="btn btn-delete" v-on:click="deleteBlog">
+          Delete blog
+        </button>
+      </div>
     </div>
-    <div class="button-wrapper">
-      <router-link v-bind:to="'/edit/' + this.id" exact>
-        <button>Edit blog</button></router-link
+    <div class="comments-container flex-item">
+      <button class="btn-add-post" v-on:click="showHandler">
+        <img
+          :class="{ rotate_that_cross: showComment }"
+          class="btn-add-comment--cross"
+          src="../assets/cross.svg"
+          alt="cross-btn"
+        />
+      </button>
+
+      <div
+        v-for="comment of comments.comments"
+        :key="comment.id"
+        class="comment"
       >
-      <button v-on:click="deleteBlog">Delete blog</button>
+        <button
+          class="btn-comment-delete"
+          v-on:click="deleteComment(comment.id)"
+        >
+          <img
+            src="../assets/cross-comment-delete.svg"
+            alt="cross-delete-comment-svg"
+          />
+        </button>
+        <h3 class="name">{{ comment.title }} <em>said:</em></h3>
+        <p>
+          {{ comment.content }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -127,30 +149,138 @@ export default {
 </script>
 
 <style lang="scss">
-.comment {
+.flex-item {
+  margin: 6rem 3rem 3rem;
+  width: 50%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.blog-main {
+  position: absolute;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #a0a0a0;
   width: 80%;
-  background-color: #fff;
-  margin: 1rem;
+  height: 80vh;
+  left: 50%;
+  top: 11rem;
+  transform: translate(-50%);
+  overflow: hidden;
+  box-shadow: 4px 4px 10px rgb(83, 83, 83);
+
+  .button-container {
+    position: relative;
+    bottom: 0;
+  }
+
+  .btn-add-comment--cross {
+    transition: 0.5s;
+    height: 3rem;
+    position: absolute;
+    right: 0;
+  }
+}
+.comments-container {
+  padding-top: 4rem;
+
+  .comment {
+    width: 95%;
+    background-color: #fff;
+    margin: 0 0 1rem 0;
+    height: auto;
+    display: inline-block;
+    box-shadow: 2px 2px 5px rgb(83, 83, 83);
+    transition: 0.4s;
+    position: relative;
+    &:hover {
+      box-shadow: 2px 2px 5px #cf8a3a;
+      transition: 0.4s;
+    }
+    .name {
+      position: relative;
+    }
+    p {
+      display: inline-block;
+      width: 100%;
+    }
+    .btn-comment-delete {
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      position: absolute;
+      margin-top: 0.5rem;
+      margin-right: 1rem;
+      right: 0;
+      height: 2rem;
+      z-index: 4;
+      img {
+        height: 2rem;
+      }
+    }
+  }
+}
+
+.blog-container {
+  position: relative;
+  display: inline-block;
+  color: #fff;
 }
 
 .comment-form {
+  position: absolute;
   display: flex;
-  justify-content: center;
+  height: 60vh;
+  min-height: 25rem;
+  width: 60vw;
+  min-width: 25rem;
+  background-color: #ccc;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  width: 40rem;
-  height: 5rem;
-}
+  margin-top: 5rem;
+  z-index: 5;
+  button {
+    width: 12rem;
+  }
+  input {
+    display: inline-block;
+    width: 80%;
+    height: auto;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #222222;
+    outline: none;
+    transition: 0.4s;
+    font-family: "Lato", sans-serif;
+    font-size: 1.5rem;
 
-.blog {
-  width: 80%;
-  height: 90vh;
-  background-color: #42b983;
-  margin: 2rem;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  align-items: center;
+    &:focus {
+      border-bottom: 1px solid rgb(221, 122, 65);
+      transition: 0.4s;
+    }
+  }
+
+  textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #222222;
+    height: 2rem;
+    resize: none;
+    overflow: hidden;
+    outline: none;
+    transition: 0.4s;
+    width: 80%;
+    &:focus {
+      border-bottom: 1px solid rgb(221, 122, 65);
+      transition: 0.4s;
+    }
+  }
 }
 </style>

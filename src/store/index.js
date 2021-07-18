@@ -5,7 +5,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    //posts should be empty array
     posts: [
       {
         id: "721210",

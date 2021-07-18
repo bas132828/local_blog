@@ -1,35 +1,30 @@
 <template>
-  <div class="edition-container">
-    <div id="input">
-      <form class="post-form" v-on:submit.prevent="onSubmitEdition">
-        <label for="#text">Title</label>
-        <input
-          type="text"
-          id="title"
-          class="title"
-          placeholder="Your title"
-          v-model="titleMessageEdited"
-          required
-        />
-        <label for="#brief">Brief</label>
-        <input
-          type="text"
-          id="brief"
-          class="title"
-          placeholder="What's your blog about(will show the begging of the post if not mentioned)"
-          v-model="brief"
-        />
-        <label for="#message">Message</label>
-        <textarea
-          id="message"
-          class="message"
-          placeholder="Your text"
-          required
-          v-model="textMessage"
-        />
-        <button type="submit">Post</button>
-      </form>
-    </div>
+  <div class="input">
+    <form class="post-form" v-on:submit.prevent="onSubmitEdition">
+      <input
+        type="text"
+        id="title"
+        class="title"
+        placeholder="Your new title"
+        v-model="titleMessageEdited"
+        required
+      />
+      <input
+        type="text"
+        id="brief"
+        class="title"
+        placeholder="Your new brief"
+        v-model="brief"
+      />
+      <textarea
+        id="message"
+        class="message"
+        placeholder="Your new text"
+        required
+        v-model="textMessage"
+      />
+      <button class="btn" type="submit">Post</button>
+    </form>
   </div>
 </template>
 

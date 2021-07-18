@@ -1,11 +1,18 @@
 <template>
   <div class="home">
-    <button class="btn-add-post" v-on:click="showHandler">new post</button>
-    <div class="container">
-      <Input-form />
-      <Card v-if="posts.length > 0" class="wrapper" :show="show" />
-      <p v-else>Click a new post button to make your firts post!</p>
-    </div>
+    <button class="btn-add-post" v-on:click="showHandler">
+      <img
+        class="btn-add-post--cross"
+        src="../assets/cross.svg"
+        alt="cross-svg"
+        :class="{ rotate_that_cross: show }"
+      />
+    </button>
+    <Input-form />
+    <Card v-if="posts.length" :show="show" />
+    <p class="no-post-message" v-show="posts.length === 0">
+      Click a new post button to make your firts post!
+    </p>
   </div>
 </template>
 <script>
@@ -15,9 +22,6 @@ import InputForm from "@/components/InputForm.vue";
 export default {
   name: "Home",
   components: { Card, InputForm },
-  data() {
-    return {};
-  },
   methods: {
     showHandler() {
       this.$store.commit("showHandler");
@@ -40,70 +44,36 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column-reverse;
-  width: 100%;
-}
+.btn-add-post {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 2rem;
+  background-color: transparent;
+  border: none;
+  appearance: none;
 
+  .btn-add-post--cross {
+    transition: 0.7s;
+    height: 4rem;
+  }
+}
+.no-post-message {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 4rem;
+  font-family: "Kalam", cursive;
+}
+.rotate_that_cross {
+  transform: rotate(45deg);
+  transition: 0.7s;
+}
 .title {
   width: 80%;
 }
 .message {
   width: 80%;
-  // height: 5rem;
-}
-.post-form {
-  width: 80%;
-  height: 10rem;
-  background-color: #42b983;
-  margin: 2rem;
-  position: relative;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: column;
-  button {
-    width: 5rem;
-    height: 2rem;
-    appearance: none;
-    background-color: #fff;
-  }
-}
-
-.comments-counter {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  width: 4rem;
-  height: 1rem;
-  background-color: #fff;
-  font-size: 10px;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-.card {
-  width: 80%;
-  height: 10rem;
-  background-color: #42b983;
-  margin: 2rem;
-  position: relative;
-}
-.btn-add-post {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 5rem;
-  height: 3rem;
-  appearance: none;
-  background-color: #42b983;
-  color: #fff;
 }
 </style>

@@ -1,17 +1,15 @@
 <template>
-  <div>
+  <div class="cards-container">
     <div v-for="post in posts" :key="post.id" class="card">
-      <router-link v-bind:to="'/' + post.id">
+      <router-link class="router_link" v-bind:to="'/' + post.id">
         <h1>{{ post.title }}</h1>
       </router-link>
-      <p>
+      <h4>
         {{ post.brief || post.message | snippet }}
-      </p>
-      <div v-if="post.comments.length === 1" class="comments-counter">
-        {{ post.comments.length }} comment
-      </div>
-      <div v-else class="comments-counter">
-        {{ post.comments.length }} comments
+      </h4>
+      <div class="comments-counter">
+        {{ post.comments.length }}
+        {{ (post.comments.length === 1 && "comment") || "comments" }}
       </div>
     </div>
   </div>
@@ -30,4 +28,63 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.cards-container {
+  display: grid;
+  margin: 5rem 0 15rem 0;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-auto-rows: 1fr;
+  gap: 3rem 3rem;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, 40rem);
+  justify-content: space-around;
+  justify-items: stretch;
+  position: relative;
+  top: 10rem;
+}
+.card {
+  display: inline-block;
+  height: 40rem;
+  width: 100%;
+  background-color: #aaaaaa;
+  box-shadow: 5px 5px 15px #000;
+  transition: 0.3s;
+
+  .router_link {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      text-decoration: none;
+      color: rgb(66, 66, 66);
+    }
+  }
+
+  &:hover {
+    transform: translateY(-1rem);
+    transition: 0.3s;
+    box-shadow: 5px 5px 15px rgb(221, 122, 65);
+  }
+  h1 {
+    font-family: "Lato", sans-serif;
+    margin-top: 3rem;
+  }
+  h4 {
+    font-family: "Kalam", cursive;
+    color: #fff;
+    margin: 8rem 3rem;
+    width: 80%;
+  }
+  .comments-counter {
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    margin: 2rem;
+    padding: 0.5rem;
+    height: 3rem;
+    color: #fff;
+    font-family: "Kalam", cursive;
+  }
+}
+</style>
