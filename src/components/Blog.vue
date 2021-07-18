@@ -20,20 +20,21 @@
       <button class="btn" type="submit">Leave a comment</button>
     </form>
     <div class="blog-container flex-item">
+      <p class="date-tag">posted on {{ blogContent.date }}</p>
+
       <h1>{{ blogContent.title }}</h1>
       <h4 v-if="blogContent.brief">
         {{ blogContent.brief }}
       </h4>
       <p>{{ blogContent.message }}</p>
-
-      <div class="button-container">
-        <router-link v-bind:to="'/edit/' + this.id" exact>
-          <button class="btn btn-edit">Edit blog</button></router-link
-        >
-        <button class="btn btn-delete" v-on:click="deleteBlog">
-          Delete blog
-        </button>
-      </div>
+    </div>
+    <div class="button-container">
+      <router-link v-bind:to="'/edit/' + this.id" exact>
+        <button class="btn btn-edit">Edit blog</button></router-link
+      >
+      <button class="btn btn-delete" v-on:click="deleteBlog">
+        Delete blog
+      </button>
     </div>
     <div class="comments-container flex-item">
       <button class="btn-add-post" v-on:click="showHandler">
@@ -165,8 +166,10 @@ export default {
   box-shadow: 4px 4px 10px rgb(83, 83, 83);
 
   .button-container {
-    position: relative;
+    position: absolute;
     bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
   }
 
   .btn-add-comment--cross {
@@ -177,7 +180,7 @@ export default {
   }
 }
 .flex-item {
-  margin: 6rem 3rem 3rem;
+  margin: 6rem 3rem;
   overflow-y: auto;
   overflow-x: hidden;
   -ms-overflow-style: none;
@@ -191,21 +194,22 @@ export default {
 .comments-container {
   padding-top: 4rem;
   width: 90%;
-  p {
-    display: inline-block;
-    width: 100%;
-    height: auto;
-    padding: 0.5rem;
-  }
+
   .comment {
     width: 95%;
     background-color: #fff;
     margin: 0 0 1rem 0;
-    height: auto;
     display: inline-block;
     box-shadow: 2px 2px 5px rgb(83, 83, 83);
     transition: 0.4s;
     position: relative;
+    overflow: hidden;
+    p {
+      display: inline-block;
+      width: 100%;
+      height: auto;
+      padding: 0.5rem;
+    }
     &:hover {
       box-shadow: 2px 2px 5px #cf8a3a;
       transition: 0.4s;
@@ -236,6 +240,12 @@ export default {
   display: inline-block;
   color: #fff;
   width: 90%;
+  .date-tag {
+    position: relative;
+    font-style: italic;
+    color: rgb(255, 255, 255);
+    z-index: 6;
+  }
   p {
     display: inline-block;
     width: 100%;

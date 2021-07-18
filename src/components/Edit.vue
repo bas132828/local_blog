@@ -47,6 +47,7 @@ export default {
         title: this.titleMessageEdited,
         brief: this.brief,
         text: this.textMessage,
+        date: new Date().toLocaleString(),
       });
       localStorage.setItem("posts", JSON.stringify(this.$store.state.posts));
       this.$router.push(`/${this.$route.params.id}`);

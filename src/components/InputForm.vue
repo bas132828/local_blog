@@ -1,5 +1,5 @@
 <template>
-  <div id="input" class="input" :class="{ z_index_fix: show }">
+  <div class="input" :class="{ z_index_fix: show }">
     <form v-show="show" class="post-form" v-on:submit.prevent="onSubmit">
       <input
         type="text"
@@ -39,6 +39,7 @@ export default {
       textMessage: "",
       idForPost: 0,
       posts: [],
+      date: "",
     };
   },
   methods: {
@@ -53,7 +54,7 @@ export default {
       this.$store.commit("addPost", {
         id: this.idForPost,
         brief: this.brief,
-
+        date: new Date().toLocaleString(),
         title: this.titleMessage,
         message: this.textMessage,
         comments: [],

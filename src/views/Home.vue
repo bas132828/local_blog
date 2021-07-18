@@ -9,10 +9,8 @@
       />
     </button>
     <Input-form />
+    <div class="backdrop"></div>
     <Card v-if="posts.length" :show="show" />
-    <p class="no-post-message" v-show="posts.length === 0">
-      Click a new post button to make your firts post!
-    </p>
   </div>
 </template>
 <script>

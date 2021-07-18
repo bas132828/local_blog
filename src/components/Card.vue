@@ -2,6 +2,7 @@
   <div class="cards-container">
     <div v-for="post in posts" :key="post.id" class="card">
       <router-link class="router_link" v-bind:to="'/' + post.id"> </router-link>
+      <h4 class="blog-date">posted on {{ post.date }}</h4>
       <h1>{{ post.title }}</h1>
       <h4>
         {{ post.brief || post.message | snippet }}
@@ -73,6 +74,17 @@ export default {
     transition: 0.3s;
     box-shadow: 5px 5px 15px rgb(221, 122, 65);
   }
+  .blog-date {
+    display: inline-block;
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    width: 5rem;
+    height: auto;
+    margin: 0.3rem;
+    font-size: 1rem;
+    color: rgb(235, 235, 235);
+  }
   h1 {
     font-family: "Lato", sans-serif;
     margin-top: 3rem;
@@ -85,12 +97,7 @@ export default {
   }
   .comments-counter {
     position: relative;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%);
-    margin: 2rem;
-    padding: 0.5rem;
-    height: 3rem;
+    bottom: -10rem;
     color: #fff;
     font-family: "Kalam", cursive;
   }
