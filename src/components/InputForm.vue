@@ -7,6 +7,7 @@
         class="title"
         placeholder="Your title"
         v-model="titleMessage"
+        maxlength="25"
         required
       />
       <input

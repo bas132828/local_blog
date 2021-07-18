@@ -90,9 +90,9 @@ body {
   background: linear-gradient(
     -45deg,
     #e7e4e49c,
-    #bdb5b573,
-    #7cc5e091,
-    #e9eba785
+    #b1aeae73,
+    #adbfc591,
+    #babb9f85
   );
   background-size: 400% 400%;
   animation: gradient 20s ease infinite;
@@ -107,6 +107,20 @@ body {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 56%;
+  }
+  .blog-main {
+    flex-direction: column;
+  }
+}
+@media (max-width: 500px) {
+  html {
+    font-size: 50%;
   }
 }
 </style>

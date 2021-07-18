@@ -1,9 +1,8 @@
 <template>
   <div class="cards-container">
     <div v-for="post in posts" :key="post.id" class="card">
-      <router-link class="router_link" v-bind:to="'/' + post.id">
-        <h1>{{ post.title }}</h1>
-      </router-link>
+      <router-link class="router_link" v-bind:to="'/' + post.id"> </router-link>
+      <h1>{{ post.title }}</h1>
       <h4>
         {{ post.brief || post.message | snippet }}
       </h4>
@@ -20,6 +19,7 @@ export default {
   data() {
     return {};
   },
+  methods: {},
   computed: {
     posts() {
       return this.$store.state.posts;
@@ -29,6 +29,13 @@ export default {
 </script>
 
 <style lang="scss">
+.router_link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
 .cards-container {
   display: grid;
   margin: 5rem 0 15rem 0;
@@ -44,6 +51,7 @@ export default {
 }
 .card {
   display: inline-block;
+  position: relative;
   height: 40rem;
   width: 100%;
   background-color: #aaaaaa;

@@ -149,25 +149,15 @@ export default {
 </script>
 
 <style lang="scss">
-.flex-item {
-  margin: 6rem 3rem 3rem;
-  width: 50%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
 .blog-main {
   position: absolute;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: #a0a0a0;
-  width: 80%;
+  width: 90%;
+  min-width: 15rem;
   height: 80vh;
+  min-height: 50rem;
   left: 50%;
   top: 11rem;
   transform: translate(-50%);
@@ -186,9 +176,27 @@ export default {
     right: 0;
   }
 }
+.flex-item {
+  margin: 6rem 3rem 3rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .comments-container {
   padding-top: 4rem;
-
+  width: 90%;
+  p {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    padding: 0.5rem;
+  }
   .comment {
     width: 95%;
     background-color: #fff;
@@ -205,10 +213,7 @@ export default {
     .name {
       position: relative;
     }
-    p {
-      display: inline-block;
-      width: 100%;
-    }
+
     .btn-comment-delete {
       appearance: none;
       background-color: transparent;
@@ -230,6 +235,13 @@ export default {
   position: relative;
   display: inline-block;
   color: #fff;
+  width: 90%;
+  p {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    padding: 0.5rem;
+  }
 }
 
 .comment-form {
@@ -239,12 +251,17 @@ export default {
   min-height: 25rem;
   width: 60vw;
   min-width: 25rem;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
   background-color: #ccc;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
   margin-top: 5rem;
-  z-index: 5;
+  z-index: 7;
+  box-shadow: 2px 2px 5px rgb(83, 83, 83);
+
   button {
     width: 12rem;
   }

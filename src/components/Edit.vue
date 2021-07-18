@@ -7,6 +7,7 @@
         class="title"
         placeholder="Your new title"
         v-model="titleMessageEdited"
+        maxlength="25"
         required
       />
       <input
