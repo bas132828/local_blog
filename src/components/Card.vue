@@ -1,6 +1,6 @@
 <template>
-  <div class="cards-container">
-    <div v-for="post in posts" :key="post.id" class="card">
+  <div class="cards-container observer-root">
+    <div v-for="post in posts" :key="post.id" class="card observable">
       <router-link class="router_link" v-bind:to="'/' + post.id"> </router-link>
       <h4 class="blog-date">posted on {{ post.date }}</h4>
       <h1>{{ post.title }}</h1>
@@ -30,6 +30,7 @@ export default {
 </script>
 
 <style lang="scss">
+//
 .router_link {
   position: absolute;
   left: 0;
