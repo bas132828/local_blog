@@ -63,4 +63,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+/*
+reused styles from InputForm
+*/
+</style>
