@@ -1,9 +1,11 @@
 
 # blog_app
 
-https://compassionate-allen-633782.netlify.app/ билд с готовыми блогами
+https://compassionate-allen-633782.netlify.app/ 
+билд с готовыми блогами
 
-https://blissful-nightingale-ae17dc.netlify.app/  чистый билд
+https://blissful-nightingale-ae17dc.netlify.app/  
+чистый билд
 
 
 ## Project setup
