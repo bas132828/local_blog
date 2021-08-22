@@ -1,5 +1,11 @@
 <template>
-  <div class="cards-container">
+  <!-- <div > -->
+  <draggable
+    class="cards-container"
+    v-model="myList"
+    @start="drag = true"
+    @end="drag = false"
+  >
     <div v-for="post in posts" :key="post.id" class="card">
       <router-link class="router_link" v-bind:to="'/' + post.id"> </router-link>
       <h4 class="blog-date">posted on {{ post.date }}</h4>
@@ -12,11 +18,17 @@
         {{ (post.comments.length === 1 && "comment") || "comments" }}
       </div>
     </div>
-  </div>
+  </draggable>
+  <!-- </div> -->
 </template>
 
 <script>
+import draggable from "vuedraggable";
+
 export default {
+  components: {
+    draggable,
+  },
   data() {
     return {};
   },
@@ -24,6 +36,14 @@ export default {
   computed: {
     posts() {
       return this.$store.state.posts;
+    },
+    myList: {
+      get() {
+        return this.$store.state.myList;
+      },
+      set(value) {
+        this.$store.commit("updateList", value);
+      },
     },
   },
 };
