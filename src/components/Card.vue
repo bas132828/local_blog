@@ -40,6 +40,7 @@ export default {
       },
       set(value) {
         this.$store.commit("rewritePosts", value);
+        localStorage.setItem("posts", JSON.stringify(this.$store.state.posts));
       },
     },
   },
