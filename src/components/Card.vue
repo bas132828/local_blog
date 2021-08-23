@@ -2,7 +2,7 @@
   <!-- <div > -->
   <draggable
     class="cards-container"
-    v-model="myList"
+    v-model="posts"
     @start="drag = true"
     @end="drag = false"
   >
@@ -34,15 +34,12 @@ export default {
   },
   methods: {},
   computed: {
-    posts() {
-      return this.$store.state.posts;
-    },
-    myList: {
+    posts: {
       get() {
-        return this.$store.state.myList;
+        return this.$store.state.posts;
       },
       set(value) {
-        this.$store.commit("updateList", value);
+        this.$store.commit("rewritePosts", value);
       },
     },
   },
